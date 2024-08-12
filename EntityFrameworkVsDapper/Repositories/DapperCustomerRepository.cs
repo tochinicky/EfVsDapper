@@ -20,7 +20,7 @@ namespace EntityFrameworkVsDapper.Repositories
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {
-                return await connection.QueryAsync<Customer>("SELECT * FROM \"Customers\"");
+                return await connection.QueryAsync<Customer>("SELECT \"CustomerId\",\"Name\" FROM \"Customers\"");
             }
         }
         public async Task<Customer> GetCustomerByIdAsync(int id)
