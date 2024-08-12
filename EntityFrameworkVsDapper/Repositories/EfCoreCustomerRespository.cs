@@ -20,16 +20,8 @@ namespace EntityFrameworkVsDapper.Repositories
 
         public async Task<Customer> GetCustomerByIdAsync(int id)
         {
-            try
-            {
-                return await _context.Customers.FindAsync(id);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in GetCustomerByIdAsync: {ex.Message}");
-                throw;
-            }
-           
+
+            return await _context.Customers.FindAsync(id);
         }
 
         public async Task AddCustomerAsync(Customer customer)

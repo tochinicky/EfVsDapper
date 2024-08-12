@@ -22,11 +22,10 @@ public class EfCoreDapperBenchmark
         await _efCoreRepository.GetCustomersAsync();
     }
 
-    //[Benchmark]
+    [Benchmark]
     public async Task GetAllCustomersDapper()
     {
-       var get =  await _dapperRepository.GetCustomersAsync();
-        return;
+        await _dapperRepository.GetCustomersAsync();
     }
 
     [Benchmark]
@@ -35,10 +34,9 @@ public class EfCoreDapperBenchmark
         await _efCoreRepository.GetCustomerByIdAsync(1);
     }
 
-    //[Benchmark]
+    [Benchmark]
     public async Task GetCustomerByIdDapper()
     {
-       var ff=  await _dapperRepository.GetCustomerByIdAsync(1);
-        return;
+        await _dapperRepository.GetCustomerByIdAsync(1);
     }
 }
