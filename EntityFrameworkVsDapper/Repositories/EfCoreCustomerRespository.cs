@@ -17,13 +17,17 @@ namespace EntityFrameworkVsDapper.Repositories
         {
             return await _context.Customers.ToListAsync();
         }
-
         public async Task<Customer> GetCustomerByIdAsync(int id)
         {
-
+            // return await _context.Customers.FromSql($"SELECT * FROM \"Customers\" WHERE \"CustomerId\" = {id}").FirstOrDefaultAsync()
             return await _context.Customers.FindAsync(id);
         }
-
+        public async Task<List<Order>> GetOrdersByCustomerIdAsync(int customerId)
+        {
+            return await _context.Orders
+                                 .Where(o => o.CustomerId == customerId)
+                                 .ToListAsync();
+        }
         public async Task AddCustomerAsync(Customer customer)
         {
             await _context.Customers.AddAsync(customer);

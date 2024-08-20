@@ -23,12 +23,21 @@ namespace EntityFrameworkVsDapper.Repositories
                 return await connection.QueryAsync<Customer>("SELECT \"CustomerId\",\"Name\" FROM \"Customers\"");
             }
         }
+
         public async Task<Customer> GetCustomerByIdAsync(int id)
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 return await connection.QueryFirstOrDefaultAsync<Customer>(
-                    "SELECT * FROM \"Customers\" WHERE \"CustomerId\" = @Id", new { Id = id });
+                    "SELECT * FROM \"Customers\" WHERE \"CustomerId\" = @id LIMIT 1", new { Id = id });
+            }
+        }
+        public async Task<IEnumerable<Order>> GetOrdersByCistomerId(int id)
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                return await connection.QueryAsync<Order>(
+                    "SELECT \"Id\", \"CustomerId\", \"Amount\", \"OrderDate\" FROM \"Orders\" WHERE \"CustomerId\" = @CustomerId", new { CustomerId = id });
             }
         }
         public async Task AddCustomerAsync(Customer customer)
